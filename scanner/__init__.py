@@ -1,0 +1,1 @@
+"""Antivirus scanner package."""
