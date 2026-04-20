@@ -1,0 +1,17 @@
+{
+  "44d88612fea8a8f36de82e1278abb02f3d31ac68aaaa12f0b4bb29a9b9f5f5d8": {
+    "name": "EICAR.TestFile",
+    "family": "TestVirus",
+    "severity": "Low"
+  },
+  "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f": {
+    "name": "Trojan.Generic",
+    "family": "Trojan",
+    "severity": "High"
+  },
+  "7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069": {
+    "name": "Backdoor.Agent",
+    "family": "Backdoor",
+    "severity": "Critical"
+  }
+}
