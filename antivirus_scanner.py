@@ -133,10 +133,10 @@ def quarantine_file(file_path: Path, quarantine_dir: str | Path, scan_root: Path
     try:
         relative = source.relative_to(root)
     except ValueError:
-        relative = source.name
+        external_id = hashlib.sha256(source.as_posix().encode("utf-8")).hexdigest()
+        relative = Path("_external") / external_id
 
     destination = quarantine_root / relative
-    destination = destination if isinstance(destination, Path) else quarantine_root / str(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
 
     counter = 1
@@ -158,6 +158,7 @@ def scan_target(
 ) -> list[ScanResult]:
     """Scan a file or directory and return file scan results."""
     root = validate_existing_path(target_path)
+    scan_root = root if root.is_dir() else root.parent
     results: list[ScanResult] = []
 
     for file_path in iter_files(root):
@@ -174,7 +175,7 @@ def scan_target(
             logging.warning("Malicious file detected: %s", file_path)
             if quarantine_dir is not None:
                 try:
-                    quarantined_to = quarantine_file(file_path, quarantine_dir, root.parent if root.is_file() else root)
+                    quarantined_to = quarantine_file(file_path, quarantine_dir, scan_root)
                     logging.info("Moved file to quarantine: %s", quarantined_to)
                 except OSError as exc:
                     logging.error("Failed to quarantine file %s: %s", file_path, exc)

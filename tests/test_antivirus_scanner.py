@@ -59,8 +59,6 @@ class AntivirusScannerTests(unittest.TestCase):
             self.assertEqual(len(results), 2)
             malicious_results = [result for result in results if result.is_malicious]
             self.assertEqual(len(malicious_results), 1)
-            self.assertIsNotNone(malicious_results[0].quarantined_to)
-
             quarantined_path = malicious_results[0].quarantined_to
             self.assertIsNotNone(quarantined_path)
             self.assertTrue(Path(quarantined_path).exists())
