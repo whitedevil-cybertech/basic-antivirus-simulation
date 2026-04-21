@@ -1,2 +1,4 @@
 2026-04-20 18:37:22,009 INFO Scan started: /home/runner/work/basic-antivirus-simulation/basic-antivirus-simulation/data
 2026-04-20 18:37:22,009 INFO Scan finished: 3 file(s) scanned, 0 malicious
+2026-04-21 23:02:23,841 INFO Scan started: A:\CYBERSECURITY\Skillfied\Project1\basic-antivirus-simulation\demo_scan
+2026-04-21 23:02:23,844 INFO Scan finished: 2 file(s) scanned, 0 malicious

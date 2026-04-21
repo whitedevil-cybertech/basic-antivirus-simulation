@@ -34,6 +34,26 @@ def main() -> int:
     
     # Create and show main window
     window = MainWindow(theme=ThemeManager.DARK)
+    
+    # Initialize panel directories
+    project_root = Path(__file__).parent
+    config_dir = Path.home() / ".antivirus"
+    config_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Setup quarantine panel
+    quarantine_dir = project_root / "data" / "quarantine"
+    quarantine_dir.mkdir(parents=True, exist_ok=True)
+    window.tab_quarantine.set_quarantine_directory(quarantine_dir)
+    
+    # Setup allowlist panel
+    allowlist_file = config_dir / "allowlist.json"
+    window.tab_allowlist.set_allowlist_path(allowlist_file)
+    
+    # Setup settings panel
+    config_file = config_dir / "config.json"
+    window.tab_settings.set_config_file(config_file)
+    window.tab_settings.theme_changed.connect(window._switch_theme)
+    
     window.show()
     
     logger.info("Main window displayed")
