@@ -20,6 +20,7 @@ from PyQt6.QtWidgets import (
     QTableWidgetItem,
     QHeaderView,
     QDialog,
+    QMessageBox,
 )
 from PyQt6.QtCore import Qt, pyqtSignal, QThread
 from PyQt6.QtGui import QColor
@@ -262,51 +263,88 @@ class ScanPanel(QWidget):
         target = self.target_input.text().strip()
         signatures = self.sig_input.text().strip()
 
-        # Validation
-        if not target:
-            self.status_label.setText("Error: Please select a target directory")
-            self.logger.warning("Scan attempted without target")
-            return
+        # Input validation
+        try:
+            if not target:
+                self.status_label.setText("Error: Please select a target directory")
+                QMessageBox.warning(self, "Input Required", "Please select a target directory to scan.")
+                self.logger.warning("Scan attempted without target")
+                return
 
-        if not signatures:
-            self.status_label.setText("Error: Please select a signature database")
-            self.logger.warning("Scan attempted without signatures")
-            return
+            if not signatures:
+                self.status_label.setText("Error: Please select a signature database")
+                QMessageBox.warning(self, "Input Required", "Please select a signature database.")
+                self.logger.warning("Scan attempted without signatures")
+                return
 
-        if not Path(target).exists():
-            self.status_label.setText(f"Error: Target path does not exist: {target}")
-            self.logger.error(f"Target path not found: {target}")
-            return
+            # Path validation
+            target_path = Path(target)
+            if not target_path.exists():
+                self.status_label.setText(f"Error: Target path not found: {target}")
+                QMessageBox.critical(self, "Path Not Found", f"Target path does not exist:\n{target}")
+                self.logger.error(f"Target path not found: {target}")
+                return
 
-        if not Path(signatures).exists():
-            self.status_label.setText(f"Error: Signature file not found: {signatures}")
-            self.logger.error(f"Signature file not found: {signatures}")
-            return
+            if not target_path.is_dir() and not target_path.is_file():
+                self.status_label.setText(f"Error: Invalid target path: {target}")
+                QMessageBox.critical(self, "Invalid Path", f"Target is neither a file nor directory:\n{target}")
+                self.logger.error(f"Invalid target path: {target}")
+                return
 
-        # Clear previous results
-        self.results_table.setRowCount(0)
-        self.scan_results = []
+            sig_path = Path(signatures)
+            if not sig_path.exists():
+                self.status_label.setText(f"Error: Signature file not found: {signatures}")
+                QMessageBox.critical(self, "Signature File Not Found", f"Signature database not found:\n{signatures}")
+                self.logger.error(f"Signature file not found: {signatures}")
+                return
 
-        # Setup worker thread
-        quarantine = self.quarantine_input.text().strip() or None
-        self.scan_worker = ScanWorker(target, signatures, quarantine)
+            if not sig_path.is_file():
+                self.status_label.setText(f"Error: Signature path is not a file: {signatures}")
+                QMessageBox.critical(self, "Invalid Signature File", f"Signature path must be a file:\n{signatures}")
+                self.logger.error(f"Signature path is not a file: {signatures}")
+                return
 
-        # Connect signals
-        self.scan_worker.progress.connect(self._on_progress)
-        self.scan_worker.status_update.connect(self._on_status_update)
-        self.scan_worker.result.connect(self._on_scan_result)
-        self.scan_worker.error.connect(self._on_scan_error)
-        self.scan_worker.finished.connect(self._on_scan_finished)
+            # Quarantine directory validation
+            quarantine = self.quarantine_input.text().strip() or None
+            if quarantine:
+                quarantine_path = Path(quarantine)
+                if quarantine_path.exists() and not quarantine_path.is_dir():
+                    self.status_label.setText(f"Error: Quarantine path is not a directory: {quarantine}")
+                    QMessageBox.critical(self, "Invalid Quarantine Path", 
+                                       f"Quarantine path must be a directory:\n{quarantine}")
+                    self.logger.error(f"Quarantine path is not a directory: {quarantine}")
+                    return
 
-        # Update UI
-        self.scan_btn.setEnabled(False)
-        self.stop_btn.setEnabled(True)
-        self.browse_btn.setEnabled(False)
-        self.sig_browse_btn.setEnabled(False)
+            # Clear previous results
+            self.results_table.setRowCount(0)
+            self.scan_results = []
 
-        # Start scanning
-        self.scan_worker.start()
-        self.logger.info(f"Scan started: {target}")
+            # Setup worker thread
+            self.scan_worker = ScanWorker(target, signatures, quarantine)
+
+            # Connect signals
+            self.scan_worker.progress.connect(self._on_progress)
+            self.scan_worker.status_update.connect(self._on_status_update)
+            self.scan_worker.result.connect(self._on_scan_result)
+            self.scan_worker.error.connect(self._on_scan_error)
+            self.scan_worker.finished.connect(self._on_scan_finished)
+
+            # Update UI
+            self.scan_btn.setEnabled(False)
+            self.stop_btn.setEnabled(True)
+            self.browse_btn.setEnabled(False)
+            self.sig_browse_btn.setEnabled(False)
+
+            # Start scanning
+            self.scan_worker.start()
+            self.logger.info(f"Scan started: {target}")
+            self.status_label.setText("Initializing scan...")
+
+        except Exception as e:
+            error_msg = str(e)
+            self.status_label.setText(f"Error: {error_msg}")
+            QMessageBox.critical(self, "Scan Error", f"Failed to start scan:\n{error_msg}")
+            self.logger.error(f"Exception during scan start: {e}", exc_info=True)
 
     def _stop_scan(self) -> None:
         """Stop the current scan."""
@@ -343,9 +381,14 @@ class ScanPanel(QWidget):
         self.logger.info(f"Scan completed: {len(results)} files scanned")
 
     def _on_scan_error(self, error: str) -> None:
-        """Handle scan error."""
+        """Handle scan error with user-friendly message."""
         self.status_label.setText(f"Error: {error}")
         self.logger.error(f"Scan error: {error}")
+        self._reset_ui()
+        
+        # Show user-friendly error message
+        error_details = error.split(":")[-1].strip() if ":" in error else error
+        QMessageBox.critical(self, "Scan Error", f"An error occurred during scanning:\n\n{error_details}\n\nPlease check the paths and try again.")
 
     def _on_scan_finished(self) -> None:
         """Handle scan finished."""

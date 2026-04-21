@@ -13,9 +13,10 @@ from PyQt6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QStatusBar,
+    QMessageBox,
 )
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QKeySequence, QShortcut
 
 from gui.theme import ThemeManager
 
@@ -99,6 +100,9 @@ class MainWindow(QMainWindow):
         # Help menu
         help_menu = menubar.addMenu("Help")
         help_menu.addAction("About", self._show_about)
+        
+        # Setup keyboard shortcuts
+        self._setup_shortcuts()
 
     def _apply_theme(self) -> None:
         """Apply the current theme to the application."""
@@ -115,6 +119,64 @@ class MainWindow(QMainWindow):
     def _show_about(self) -> None:
         """Show about dialog."""
         self.statusbar.showMessage("About - Antivirus Scanner v1.0.0")
+
+    def _setup_shortcuts(self) -> None:
+        """Setup keyboard shortcuts for common actions."""
+        # Ctrl+S: Start scan
+        QShortcut(QKeySequence("Ctrl+S"), self, lambda: self._trigger_scan())
+        
+        # Ctrl+Q: Quit application
+        QShortcut(QKeySequence("Ctrl+Q"), self, self.close)
+        
+        # Ctrl+H: Go to Quarantine tab
+        QShortcut(QKeySequence("Ctrl+H"), self, lambda: self.tabs.setCurrentIndex(1))
+        
+        # Ctrl+W: Go to Allowlist tab
+        QShortcut(QKeySequence("Ctrl+W"), self, lambda: self.tabs.setCurrentIndex(2))
+        
+        # Ctrl+A: Go to Analytics tab
+        QShortcut(QKeySequence("Ctrl+A"), self, lambda: self.tabs.setCurrentIndex(3))
+        
+        # Ctrl+E: Go to Settings tab
+        QShortcut(QKeySequence("Ctrl+E"), self, lambda: self.tabs.setCurrentIndex(4))
+        
+        # Ctrl+T: Switch theme
+        QShortcut(QKeySequence("Ctrl+T"), self, self._toggle_theme)
+        
+        # F1: Show help
+        QShortcut(QKeySequence("F1"), self, self._show_help)
+        
+        self.logger.info("Keyboard shortcuts initialized")
+
+    def _trigger_scan(self) -> None:
+        """Trigger scan from keyboard shortcut."""
+        self.tabs.setCurrentIndex(0)  # Go to Scan tab
+        self.statusbar.showMessage("Scan tab active - click 'Start Scan' or press Ctrl+S again")
+
+    def _toggle_theme(self) -> None:
+        """Toggle between dark and light themes."""
+        current = self.theme_manager.theme
+        new_theme = "light" if current == "dark" else "dark"
+        self._switch_theme(new_theme)
+
+    def _show_help(self) -> None:
+        """Show keyboard shortcuts help."""
+        help_text = """
+Keyboard Shortcuts:
+
+Ctrl+S  - Go to Scan tab (then click Start Scan button)
+Ctrl+Q  - Quit application
+Ctrl+H  - Go to Quarantine tab
+Ctrl+W  - Go to Allowlist tab
+Ctrl+A  - Go to Analytics tab
+Ctrl+E  - Go to Settings tab
+Ctrl+T  - Toggle between dark/light theme
+F1      - Show this help
+
+Tab     - Move between controls in current panel
+Enter   - Activate focused button
+        """
+        QMessageBox.information(self, "Keyboard Shortcuts", help_text.strip())
 
     def closeEvent(self, event) -> None:
         """Handle window close event."""
