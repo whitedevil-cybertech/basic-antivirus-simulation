@@ -155,7 +155,7 @@ class MainWindow(QMainWindow):
 
     def _toggle_theme(self) -> None:
         """Toggle between dark and light themes."""
-        current = self.theme_manager.theme
+        current = self.theme_manager.current_theme
         new_theme = "light" if current == "dark" else "dark"
         self._switch_theme(new_theme)
 
