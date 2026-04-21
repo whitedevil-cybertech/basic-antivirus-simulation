@@ -57,8 +57,11 @@ class MainWindow(QMainWindow):
         self.tabs = QTabWidget()
         layout.addWidget(self.tabs)
         
-        # Add tabs (empty for now, will be filled with panels)
-        self.tab_scan = self._create_empty_tab("Scan")
+        # Import scan panel
+        from gui.widgets.scan_panel import ScanPanel
+        
+        # Add tabs with actual panels
+        self.tab_scan = ScanPanel()
         self.tab_quarantine = self._create_empty_tab("Quarantine")
         self.tab_allowlist = self._create_empty_tab("Allowlist")
         self.tab_analytics = self._create_empty_tab("Analytics")
