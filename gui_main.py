@@ -49,6 +49,11 @@ def main() -> int:
     allowlist_file = config_dir / "allowlist.json"
     window.tab_allowlist.set_allowlist_path(allowlist_file)
     
+    # Setup analytics panel
+    scan_results_file = project_root / "scan_results.log"
+    window.tab_analytics.set_scan_results_file(scan_results_file)
+    window.tab_analytics.set_quarantine_directory(quarantine_dir)
+    
     # Setup settings panel
     config_file = config_dir / "config.json"
     window.tab_settings.set_config_file(config_file)

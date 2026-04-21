@@ -61,13 +61,14 @@ class MainWindow(QMainWindow):
         from gui.widgets.scan_panel import ScanPanel
         from gui.widgets.quarantine_panel import QuarantinePanel
         from gui.widgets.allowlist_panel import AllowlistPanel
+        from gui.widgets.analytics_panel import AnalyticsPanel
         from gui.widgets.settings_panel import SettingsPanel
         
         # Add tabs with actual panels
         self.tab_scan = ScanPanel()
         self.tab_quarantine = QuarantinePanel()
         self.tab_allowlist = AllowlistPanel()
-        self.tab_analytics = self._create_empty_tab("Analytics")
+        self.tab_analytics = AnalyticsPanel()
         self.tab_settings = SettingsPanel()
         
         self.tabs.addTab(self.tab_scan, "Scan")
@@ -80,15 +81,6 @@ class MainWindow(QMainWindow):
         self.statusbar = QStatusBar()
         self.setStatusBar(self.statusbar)
         self.statusbar.showMessage("Ready")
-
-    def _create_empty_tab(self, name: str) -> QWidget:
-        """Create an empty tab placeholder."""
-        widget = QWidget()
-        layout = QVBoxLayout(widget)
-        label = QLabel(f"{name} tab - Coming soon...")
-        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(label)
-        return widget
 
     def _setup_menu(self) -> None:
         """Setup application menu bar."""
