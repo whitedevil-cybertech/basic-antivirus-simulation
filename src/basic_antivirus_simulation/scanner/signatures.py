@@ -27,7 +27,7 @@ import re
 from pathlib import Path
 from typing import Dict
 
-from scanner.utils import validate_existing_path
+from basic_antivirus_simulation.scanner.utils import validate_existing_path
 
 # A valid SHA-256 hex digest is exactly 64 lowercase hex characters.
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")

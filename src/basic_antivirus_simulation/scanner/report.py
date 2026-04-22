@@ -7,7 +7,7 @@ import logging
 from datetime import datetime, timezone
 from pathlib import Path
 
-from scanner.scanner import ScanResult
+from basic_antivirus_simulation.scanner.scanner import ScanResult
 
 
 def generate_report(

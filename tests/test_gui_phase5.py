@@ -11,6 +11,7 @@ Tests cover:
 """
 
 import unittest
+import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch, MagicMock
@@ -19,12 +20,15 @@ from PyQt6.QtWidgets import QApplication, QMessageBox
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QKeySequence
 
-from gui.main_window import MainWindow
-from gui.widgets.scan_panel import ScanPanel
-from gui.widgets.quarantine_panel import QuarantinePanel
-from gui.widgets.allowlist_panel import AllowlistPanel
-from gui.widgets.settings_panel import SettingsPanel
-from gui.widgets.analytics_panel import AnalyticsPanel
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from basic_antivirus_simulation.gui.main_window import MainWindow
+from basic_antivirus_simulation.gui.widgets.scan_panel import ScanPanel
+from basic_antivirus_simulation.gui.widgets.quarantine_panel import QuarantinePanel
+from basic_antivirus_simulation.gui.widgets.allowlist_panel import AllowlistPanel
+from basic_antivirus_simulation.gui.widgets.settings_panel import SettingsPanel
+from basic_antivirus_simulation.gui.widgets.analytics_panel import AnalyticsPanel
 
 
 def get_or_create_app():

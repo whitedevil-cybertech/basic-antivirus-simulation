@@ -12,7 +12,7 @@ python scripts/launch_gui.py
 
 ### Option 3: Direct Python
 ```bash
-py gui_main.py
+antivirus-gui
 ```
 
 ---

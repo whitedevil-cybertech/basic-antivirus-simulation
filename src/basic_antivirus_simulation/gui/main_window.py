@@ -18,7 +18,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QKeySequence, QShortcut
 
-from gui.theme import ThemeManager
+from basic_antivirus_simulation.gui.theme import ThemeManager
 
 
 class MainWindow(QMainWindow):
@@ -59,11 +59,17 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.tabs)
         
         # Import all panels
-        from gui.widgets.scan_panel import ScanPanel
-        from gui.widgets.quarantine_panel import QuarantinePanel
-        from gui.widgets.allowlist_panel import AllowlistPanel
-        from gui.widgets.analytics_panel import AnalyticsPanel
-        from gui.widgets.settings_panel import SettingsPanel
+        from basic_antivirus_simulation.gui.widgets.scan_panel import ScanPanel
+        from basic_antivirus_simulation.gui.widgets.quarantine_panel import (
+            QuarantinePanel,
+        )
+        from basic_antivirus_simulation.gui.widgets.allowlist_panel import (
+            AllowlistPanel,
+        )
+        from basic_antivirus_simulation.gui.widgets.analytics_panel import (
+            AnalyticsPanel,
+        )
+        from basic_antivirus_simulation.gui.widgets.settings_panel import SettingsPanel
         
         # Add tabs with actual panels
         self.tab_scan = ScanPanel()

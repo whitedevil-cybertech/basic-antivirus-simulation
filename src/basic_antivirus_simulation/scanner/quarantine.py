@@ -24,7 +24,7 @@ import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
-from scanner.utils import validate_existing_path
+from basic_antivirus_simulation.scanner.utils import validate_existing_path
 
 _MANIFEST_FILENAME = "manifest.json"
 

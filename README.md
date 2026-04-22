@@ -7,23 +7,16 @@ Basic signature-based antivirus simulation for educational and ethical defensive
 ```
 basic-antivirus-simulation/
 │
-├── main.py                    # CLI entry point
-├── antivirus_scanner.py       # Backward-compatibility shim
-├── gui_main.py                # GUI entry point
+├── setup.py                   # Package + console scripts
 ├── gui_requirements.txt       # GUI dependencies
 │
-├── scanner/
-│   ├── __init__.py
-│   ├── hashing.py             # SHA-256 file hashing
-│   ├── signatures.py          # Signature DB + allowlist loading/management
-│   ├── quarantine.py          # Quarantine, restore, manifest
-│   ├── scanner.py             # Core scan logic + ScanOptions/ScanResult
-│   ├── report.py              # JSON report generation
-│   └── utils.py               # Logging setup, path validation
-│
-├── gui/                        # PyQt6 GUI application
-│   ├── widgets/                # GUI panels (Scan, Quarantine, Analytics, etc.)
-│   └── dialogs/                # GUI dialogs (Report, Options, etc.)
+├── src/
+│   ├── basic_antivirus_simulation/
+│   │   ├── cli.py             # CLI entry point
+│   │   ├── gui_app.py         # GUI entry point
+│   │   ├── gui/               # PyQt6 GUI application
+│   │   └── scanner/           # Core scanning backend
+│   └── antivirus_scanner.py   # Compatibility module (import-only)
 │
 ├── data/
 │   ├── signatures.json        # Signature database (hash → threat metadata)
@@ -37,7 +30,6 @@ basic-antivirus-simulation/
 ├── scripts/
 │   ├── launch_gui.py           # GUI visual testing launcher
 │   ├── launch_gui.bat          # Windows GUI launcher
-│   └── setup_demo.py           # Demo data setup
 │
 ├── docs/
 │   └── development/            # Phase docs + visual testing guides
@@ -85,11 +77,17 @@ basic-antivirus-simulation/
 
 ## Usage
 
-### Scan
+### Install (recommended)
 
 ```bash
-python main.py scan --path ./files
-python main.py scan --path ./files \
+pip install -e .
+```
+
+### Scan (CLI)
+
+```bash
+antivirus-cli scan --path ./files
+antivirus-cli scan --path ./files \
     --signatures data/signatures.json \
     --quarantine data/quarantine \
     --allowlist  data/allowlist.json \
@@ -100,25 +98,31 @@ python main.py scan --path ./files \
     --verbose
 ```
 
-### Quarantine management
+### Quarantine management (CLI)
 
 ```bash
 # List quarantined files
-python main.py quarantine list
+antivirus-cli quarantine list
 
 # Restore a file
-python main.py quarantine restore /path/inside/quarantine/bad.exe
-python main.py quarantine restore /path/inside/quarantine/bad.exe --force
+antivirus-cli quarantine restore /path/inside/quarantine/bad.exe
+antivirus-cli quarantine restore /path/inside/quarantine/bad.exe --force
 ```
 
-### Allowlist management
+### Allowlist management (CLI)
 
 ```bash
 # Add a file path
-python main.py allowlist add --path /path/to/safe/file.exe
+antivirus-cli allowlist add --path /path/to/safe/file.exe
 
 # Add a hash
-python main.py allowlist add --hash <sha256-hex>
+antivirus-cli allowlist add --hash <sha256-hex>
+```
+
+### Launch GUI
+
+```bash
+antivirus-gui
 ```
 
 ## Exit codes

@@ -9,7 +9,8 @@ import sys
 from pathlib import Path
 
 project_root = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(project_root))
+src_root = project_root / "src"
+sys.path.insert(0, str(src_root))
 
 def print_header():
     """Print welcome header."""
@@ -115,7 +116,7 @@ def main():
     try:
         os.chdir(project_root)
         from PyQt6.QtWidgets import QApplication
-        from gui_main import main as gui_main
+        from basic_antivirus_simulation.gui_app import main as gui_main
         
         # Launch the GUI
         return gui_main()

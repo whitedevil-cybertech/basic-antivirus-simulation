@@ -1,13 +1,22 @@
 """GUI entry point for antivirus scanner."""
 
+import os
 import sys
 import logging
 from pathlib import Path
 
 from PyQt6.QtWidgets import QApplication
 
-from gui.main_window import MainWindow
-from gui.theme import ThemeManager
+from basic_antivirus_simulation.gui.main_window import MainWindow
+from basic_antivirus_simulation.gui.theme import ThemeManager
+
+
+def _find_project_root() -> Path:
+    """Locate the project root (contains data/)."""
+    for parent in Path(__file__).resolve().parents:
+        if (parent / "data").exists():
+            return parent
+    return Path.cwd()
 
 
 def main() -> int:
@@ -36,7 +45,8 @@ def main() -> int:
     window = MainWindow(theme=ThemeManager.DARK)
     
     # Initialize panel directories
-    project_root = Path(__file__).parent
+    project_root = _find_project_root()
+    os.chdir(project_root)
     config_dir = Path.home() / ".antivirus"
     config_dir.mkdir(parents=True, exist_ok=True)
     

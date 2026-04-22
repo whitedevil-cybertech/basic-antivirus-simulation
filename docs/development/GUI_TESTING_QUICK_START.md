@@ -14,7 +14,7 @@ python scripts/launch_gui.py
 ### Option 3: Direct GUI Launch
 ```powershell
 cd A:\CYBERSECURITY\Skillfied\Project1\basic-antivirus-simulation
-py gui_main.py
+antivirus-gui
 ```
 
 ---

@@ -6,8 +6,9 @@ import tempfile
 from pathlib import Path
 from unittest.mock import MagicMock
 
-# Add project root to path
-sys.path.insert(0, str(Path(__file__).parent))
+# Add src to path for package imports
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
 
 def test_imports():
     """Test all GUI imports."""
@@ -16,19 +17,19 @@ def test_imports():
     print("=" * 60)
     
     try:
-        from gui.widgets.quarantine_panel import QuarantinePanel
+        from basic_antivirus_simulation.gui.widgets.quarantine_panel import QuarantinePanel
         print("[OK] QuarantinePanel imported")
         
-        from gui.widgets.allowlist_panel import AllowlistPanel
+        from basic_antivirus_simulation.gui.widgets.allowlist_panel import AllowlistPanel
         print("[OK] AllowlistPanel imported")
         
-        from gui.widgets.settings_panel import SettingsPanel
+        from basic_antivirus_simulation.gui.widgets.settings_panel import SettingsPanel
         print("[OK] SettingsPanel imported")
         
-        from gui.main_window import MainWindow
+        from basic_antivirus_simulation.gui.main_window import MainWindow
         print("[OK] MainWindow imported")
         
-        from gui.theme import ThemeManager
+        from basic_antivirus_simulation.gui.theme import ThemeManager
         print("[OK] ThemeManager imported")
         
         return True
@@ -46,10 +47,17 @@ def test_backend_integration():
     print("=" * 60)
     
     try:
-        from scanner.quarantine import list_quarantine, restore_file
+        from basic_antivirus_simulation.scanner.quarantine import (
+            list_quarantine,
+            restore_file,
+        )
         print("[OK] scanner.quarantine module loads")
         
-        from scanner.signatures import load_allowlist, save_allowlist, add_to_allowlist
+        from basic_antivirus_simulation.scanner.signatures import (
+            load_allowlist,
+            save_allowlist,
+            add_to_allowlist,
+        )
         print("[OK] scanner.signatures module loads")
         
         # Test quarantine list with temp dir
@@ -81,9 +89,9 @@ def test_widget_instantiation():
     
     try:
         from PyQt6.QtWidgets import QApplication
-        from gui.widgets.quarantine_panel import QuarantinePanel
-        from gui.widgets.allowlist_panel import AllowlistPanel
-        from gui.widgets.settings_panel import SettingsPanel
+        from basic_antivirus_simulation.gui.widgets.quarantine_panel import QuarantinePanel
+        from basic_antivirus_simulation.gui.widgets.allowlist_panel import AllowlistPanel
+        from basic_antivirus_simulation.gui.widgets.settings_panel import SettingsPanel
         
         # Create minimal QApplication for widget testing
         if not QApplication.instance():
@@ -131,9 +139,9 @@ def test_panel_initialization():
     
     try:
         from PyQt6.QtWidgets import QApplication
-        from gui.widgets.quarantine_panel import QuarantinePanel
-        from gui.widgets.allowlist_panel import AllowlistPanel
-        from gui.widgets.settings_panel import SettingsPanel
+        from basic_antivirus_simulation.gui.widgets.quarantine_panel import QuarantinePanel
+        from basic_antivirus_simulation.gui.widgets.allowlist_panel import AllowlistPanel
+        from basic_antivirus_simulation.gui.widgets.settings_panel import SettingsPanel
         
         if not QApplication.instance():
             app = QApplication(sys.argv)
@@ -182,9 +190,9 @@ def test_signals_and_slots():
     
     try:
         from PyQt6.QtWidgets import QApplication
-        from gui.widgets.quarantine_panel import QuarantinePanel
-        from gui.widgets.allowlist_panel import AllowlistPanel
-        from gui.widgets.settings_panel import SettingsPanel
+        from basic_antivirus_simulation.gui.widgets.quarantine_panel import QuarantinePanel
+        from basic_antivirus_simulation.gui.widgets.allowlist_panel import AllowlistPanel
+        from basic_antivirus_simulation.gui.widgets.settings_panel import SettingsPanel
         
         if not QApplication.instance():
             app = QApplication(sys.argv)
@@ -222,10 +230,10 @@ def test_style_application():
     
     try:
         from PyQt6.QtWidgets import QApplication
-        from gui.widgets.quarantine_panel import QuarantinePanel
-        from gui.widgets.allowlist_panel import AllowlistPanel
-        from gui.widgets.settings_panel import SettingsPanel
-        from gui.theme import ThemeManager
+        from basic_antivirus_simulation.gui.widgets.quarantine_panel import QuarantinePanel
+        from basic_antivirus_simulation.gui.widgets.allowlist_panel import AllowlistPanel
+        from basic_antivirus_simulation.gui.widgets.settings_panel import SettingsPanel
+        from basic_antivirus_simulation.gui.theme import ThemeManager
         
         if not QApplication.instance():
             app = QApplication(sys.argv)
@@ -272,7 +280,7 @@ def test_main_window_integration():
     
     try:
         from PyQt6.QtWidgets import QApplication
-        from gui.main_window import MainWindow
+        from basic_antivirus_simulation.gui.main_window import MainWindow
         
         if not QApplication.instance():
             app = QApplication(sys.argv)

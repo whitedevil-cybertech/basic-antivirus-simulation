@@ -4,15 +4,24 @@ from __future__ import annotations
 
 import hashlib
 import json
+import sys
+from pathlib import Path
 import tempfile
 import unittest
 from pathlib import Path
 
-from scanner.hashing import hash_file
-from scanner.quarantine import list_quarantine, quarantine_file, restore_file
-from scanner.report import generate_report
-from scanner.scanner import ScanOptions, ScanResult, scan_target
-from scanner.signatures import (
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from basic_antivirus_simulation.scanner.hashing import hash_file
+from basic_antivirus_simulation.scanner.quarantine import (
+    list_quarantine,
+    quarantine_file,
+    restore_file,
+)
+from basic_antivirus_simulation.scanner.report import generate_report
+from basic_antivirus_simulation.scanner.scanner import ScanOptions, ScanResult, scan_target
+from basic_antivirus_simulation.scanner.signatures import (
     SignatureDatabaseError,
     add_to_allowlist,
     load_allowlist,
@@ -117,7 +126,8 @@ class TestAllowlist(unittest.TestCase):
             safe_hash = hashlib.sha256(b"safe").hexdigest()
             add_to_allowlist(al_path, file_path="/tmp/safe.txt", file_hash=safe_hash)
             result = load_allowlist(al_path)
-            self.assertIn("/tmp/safe.txt", result["paths"])
+            expected_path = str(Path("/tmp/safe.txt").expanduser().resolve())
+            self.assertIn(expected_path, result["paths"])
             self.assertIn(safe_hash, result["hashes"])
 
     def test_add_duplicate_is_idempotent(self):

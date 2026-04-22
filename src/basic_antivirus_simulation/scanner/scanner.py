@@ -7,10 +7,10 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from scanner.hashing import hash_file
-from scanner.quarantine import quarantine_file
-from scanner.signatures import SignatureDB
-from scanner.utils import validate_existing_path
+from basic_antivirus_simulation.scanner.hashing import hash_file
+from basic_antivirus_simulation.scanner.quarantine import quarantine_file
+from basic_antivirus_simulation.scanner.signatures import SignatureDB
+from basic_antivirus_simulation.scanner.utils import validate_existing_path
 
 
 @dataclass(frozen=True)

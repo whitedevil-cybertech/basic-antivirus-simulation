@@ -48,12 +48,20 @@ import logging
 import sys
 from pathlib import Path
 
-# Default data-file locations (relative to this file's parent directory)
-_HERE = Path(__file__).parent
-_DEFAULT_SIGNATURES = _HERE / "data" / "signatures.json"
-_DEFAULT_ALLOWLIST = _HERE / "data" / "allowlist.json"
-_DEFAULT_QUARANTINE = _HERE / "data" / "quarantine"
-_DEFAULT_LOG_FILE = _HERE / "logs" / "scan.log"
+def _find_project_root() -> Path:
+    """Locate the project root (contains data/)."""
+    for parent in Path(__file__).resolve().parents:
+        if (parent / "data").exists():
+            return parent
+    return Path.cwd()
+
+
+# Default data-file locations (relative to project root if present)
+_ROOT = _find_project_root()
+_DEFAULT_SIGNATURES = _ROOT / "data" / "signatures.json"
+_DEFAULT_ALLOWLIST = _ROOT / "data" / "allowlist.json"
+_DEFAULT_QUARANTINE = _ROOT / "data" / "quarantine"
+_DEFAULT_LOG_FILE = _ROOT / "logs" / "scan.log"
 
 
 # ---------------------------------------------------------------------------
@@ -154,10 +162,14 @@ def _build_parser() -> argparse.ArgumentParser:
 
 def _cmd_scan(args: argparse.Namespace) -> int:
     """Handle the ``scan`` subcommand."""
-    from scanner.report import generate_report, print_summary
-    from scanner.scanner import ScanOptions, scan_target
-    from scanner.signatures import SignatureDatabaseError, load_allowlist, load_signatures
-    from scanner.utils import setup_logging
+    from basic_antivirus_simulation.scanner.report import generate_report, print_summary
+    from basic_antivirus_simulation.scanner.scanner import ScanOptions, scan_target
+    from basic_antivirus_simulation.scanner.signatures import (
+        SignatureDatabaseError,
+        load_allowlist,
+        load_signatures,
+    )
+    from basic_antivirus_simulation.scanner.utils import setup_logging
 
     log_path = Path(args.log_file).expanduser() if args.log_file else None
     setup_logging(log_path, args.verbose)
@@ -219,7 +231,7 @@ def _cmd_scan(args: argparse.Namespace) -> int:
 
 def _cmd_quarantine_list(args: argparse.Namespace) -> int:
     """Handle ``quarantine list``."""
-    from scanner.quarantine import list_quarantine
+    from basic_antivirus_simulation.scanner.quarantine import list_quarantine
 
     entries = list_quarantine(args.quarantine)
     if not entries:
@@ -245,7 +257,7 @@ def _cmd_quarantine_list(args: argparse.Namespace) -> int:
 
 def _cmd_quarantine_restore(args: argparse.Namespace) -> int:
     """Handle ``quarantine restore``."""
-    from scanner.quarantine import restore_file
+    from basic_antivirus_simulation.scanner.quarantine import restore_file
 
     try:
         restored = restore_file(
@@ -268,7 +280,10 @@ def _cmd_quarantine_restore(args: argparse.Namespace) -> int:
 
 def _cmd_allowlist_add(args: argparse.Namespace) -> int:
     """Handle ``allowlist add``."""
-    from scanner.signatures import SignatureDatabaseError, add_to_allowlist
+    from basic_antivirus_simulation.scanner.signatures import (
+        SignatureDatabaseError,
+        add_to_allowlist,
+    )
 
     if not args.al_path and not args.al_hash:
         print("Error: Provide at least one of --path or --hash.", file=sys.stderr)

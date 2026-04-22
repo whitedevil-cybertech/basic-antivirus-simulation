@@ -25,9 +25,9 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, pyqtSignal, QThread
 from PyQt6.QtGui import QColor
 
-from scanner.scanner import scan_target, ScanOptions
-from scanner.signatures import load_signatures
-from gui.dialogs.scan_dialog import ScanOptionsDialog
+from basic_antivirus_simulation.scanner.scanner import scan_target, ScanOptions
+from basic_antivirus_simulation.scanner.signatures import load_signatures
+from basic_antivirus_simulation.gui.dialogs.scan_dialog import ScanOptionsDialog
 
 
 class ScanWorker(QThread):

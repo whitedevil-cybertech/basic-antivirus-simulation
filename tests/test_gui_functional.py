@@ -5,6 +5,9 @@ import json
 import tempfile
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
 def test_gui_functionality():
     """Test GUI functionality with simulated interactions."""
     print("\n" + "=" * 60)
@@ -12,7 +15,7 @@ def test_gui_functionality():
     print("=" * 60)
     
     from PyQt6.QtWidgets import QApplication
-    from gui.main_window import MainWindow
+    from basic_antivirus_simulation.gui.main_window import MainWindow
     
     # Create app if needed
     if not QApplication.instance():

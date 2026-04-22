@@ -23,7 +23,11 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtGui import QColor, QFont
 
-from scanner.signatures import load_allowlist, save_allowlist, add_to_allowlist
+from basic_antivirus_simulation.scanner.signatures import (
+    load_allowlist,
+    save_allowlist,
+    add_to_allowlist,
+)
 
 
 class AllowlistPanel(QWidget):

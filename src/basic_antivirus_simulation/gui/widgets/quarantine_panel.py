@@ -21,7 +21,7 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtGui import QColor, QFont
 
-from scanner.quarantine import list_quarantine, restore_file
+from basic_antivirus_simulation.scanner.quarantine import list_quarantine, restore_file
 
 
 class QuarantinePanel(QWidget):

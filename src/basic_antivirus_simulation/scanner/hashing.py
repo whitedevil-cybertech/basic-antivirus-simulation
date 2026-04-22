@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
-from scanner.utils import validate_existing_path
+from basic_antivirus_simulation.scanner.utils import validate_existing_path
 
 DEFAULT_CHUNK_SIZE: int = 1024 * 1024  # 1 MiB
 

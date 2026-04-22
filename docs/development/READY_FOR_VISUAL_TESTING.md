@@ -28,7 +28,7 @@ python scripts/launch_gui.py
 
 **Option 3: Direct Python**
 ```powershell
-py gui_main.py
+antivirus-gui
 ```
 
 ---
@@ -125,7 +125,7 @@ If all checked ✅ → Phase 3 is VALIDATED!
 ### Integration Updates
 
 - MainWindow: Added 3 new panels
-- gui_main.py: Initialize panels with directories
+- gui_app.py: Initialize panels with directories
 - Theme system: Already in place (dark/light switching)
 
 ### Test Coverage
