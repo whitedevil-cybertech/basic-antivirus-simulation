@@ -30,7 +30,7 @@ py gui_main.py
 **Steps:**
 1. Click "Scan" tab
 2. Click "Browse" button
-3. Select `examples/demo_scan` folder
+3. Select `a test folder` folder
 4. Review file count (should show 2-3 files)
 5. Click "Scan" button
 6. Watch progress bar update
@@ -60,7 +60,7 @@ py gui_main.py
 
 **If quarantine is empty:**
 - This is normal if no malicious files detected
-- Test restore/delete with examples/demo_scan if needed
+- Test restore/delete with a test folder if needed
 
 **If quarantine has files:**
 1. Select a file in the table
@@ -138,7 +138,7 @@ py gui_main.py
 **Paths Configuration:**
 1. Click "Settings" tab
 2. Observe Paths section:
-   - Signature Database: `examples/malware_signatures.json`
+   - Signature Database: `data/signatures.json`
    - Quarantine Directory: `data/quarantine`
    - Allowlist File: `data/allowlist.json`
    - Log File: `logs/scan_results.log`
@@ -390,7 +390,7 @@ Check the following if something doesn't work:
    ```
 
 3. **Looking for demo files?**
-   - Check `examples/demo_scan/` folder for test files
+   - Check `a test folder/` folder for test files
 
 4. **Want to see logs?**
    - Check `~/.antivirus/logs/gui.log`

@@ -33,7 +33,7 @@ def print_test_scenarios():
     scenarios = [
         ("Scan Panel", [
             "1. Go to Scan tab",
-            "2. Click 'Browse' and select 'examples/demo_scan' folder",
+            "2. Click 'Browse' and select a folder to scan",
             "3. Click 'Scan' button",
             "4. Observe real-time progress",
             "5. Review results table"
@@ -91,7 +91,7 @@ def print_important_notes():
     print("\nIMPORTANT NOTES:")
     print("-" * 70)
     notes = [
-        "The GUI uses examples/demo_scan/ folder for testing scans",
+        "Select any folder you want to scan during testing",
         "Quarantine data stored in data/quarantine/",
         "Allowlist saved to ~/.antivirus/allowlist.json",
         "Settings saved to ~/.antivirus/config.json",

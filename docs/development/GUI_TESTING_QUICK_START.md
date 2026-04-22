@@ -36,7 +36,7 @@ The GUI will display:
 ## 🧪 Quick Test Flow (5 minutes)
 
 1. **Launch the app** (see above)
-2. **Click Scan tab** → Select `examples/demo_scan` folder → Click Scan
+2. **Click Scan tab** → Select `a test folder` folder → Click Scan
    - Watch the progress bar
    - See results in table
 3. **Click Quarantine tab** → Click Refresh
@@ -178,7 +178,7 @@ cd A:\CYBERSECURITY\Skillfied\Project1\basic-antivirus-simulation
 python scripts/launch_gui.py
 ```
 
-### Missing examples/demo_scan folder
+### Missing a test folder folder
 The GUI will still work, just browse to any folder to scan.
 
 ---

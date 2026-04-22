@@ -30,11 +30,6 @@ basic-antivirus-simulation/
 │   ├── allowlist.json         # Allowlisted paths and hashes
 │   └── quarantine/            # Quarantine storage (includes manifest.json)
 │
-├── examples/
-│   ├── demo_scan/              # Demo files for scanning
-│   ├── demo_quarantine/        # Demo quarantine target
-│   └── malware_signatures.json # Demo signature database
-│
 ├── logs/
 │   ├── scan.log               # Default log output
 │   └── scan_results.log       # GUI analytics log
