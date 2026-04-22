@@ -3,11 +3,11 @@
 ## 🚀 Quick Start
 
 ### Option 1: Windows (Easiest)
-Double-click: `launch_gui.bat`
+Double-click: `scripts/launch_gui.bat`
 
 ### Option 2: Command Line
 ```bash
-python launch_gui.py
+python scripts/launch_gui.py
 ```
 
 ### Option 3: Direct Python
@@ -30,7 +30,7 @@ py gui_main.py
 **Steps:**
 1. Click "Scan" tab
 2. Click "Browse" button
-3. Select `demo_scan` folder
+3. Select `examples/demo_scan` folder
 4. Review file count (should show 2-3 files)
 5. Click "Scan" button
 6. Watch progress bar update
@@ -60,7 +60,7 @@ py gui_main.py
 
 **If quarantine is empty:**
 - This is normal if no malicious files detected
-- Test restore/delete with demo_scan if needed
+- Test restore/delete with examples/demo_scan if needed
 
 **If quarantine has files:**
 1. Select a file in the table
@@ -138,10 +138,10 @@ py gui_main.py
 **Paths Configuration:**
 1. Click "Settings" tab
 2. Observe Paths section:
-   - Signature Database: `malware_signatures.json`
+   - Signature Database: `examples/malware_signatures.json`
    - Quarantine Directory: `data/quarantine`
    - Allowlist File: `data/allowlist.json`
-   - Log File: `scan_results.log`
+   - Log File: `logs/scan_results.log`
 
 3. Click each "Browse" button
    - File dialogs should open
@@ -386,11 +386,11 @@ Check the following if something doesn't work:
 2. **ModuleNotFoundError?**
    ```bash
    cd A:\CYBERSECURITY\Skillfied\Project1\basic-antivirus-simulation
-   python launch_gui.py
+   python scripts/launch_gui.py
    ```
 
 3. **Looking for demo files?**
-   - Check `demo_scan/` folder for test files
+   - Check `examples/demo_scan/` folder for test files
 
 4. **Want to see logs?**
    - Check `~/.antivirus/logs/gui.log`

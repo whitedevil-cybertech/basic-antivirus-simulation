@@ -4,8 +4,12 @@ GUI Visual Testing Guide and Launcher
 Run this script to launch the Antivirus Scanner GUI for visual testing.
 """
 
+import os
 import sys
 from pathlib import Path
+
+project_root = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(project_root))
 
 def print_header():
     """Print welcome header."""
@@ -29,7 +33,7 @@ def print_test_scenarios():
     scenarios = [
         ("Scan Panel", [
             "1. Go to Scan tab",
-            "2. Click 'Browse' and select 'demo_scan' folder",
+            "2. Click 'Browse' and select 'examples/demo_scan' folder",
             "3. Click 'Scan' button",
             "4. Observe real-time progress",
             "5. Review results table"
@@ -87,7 +91,7 @@ def print_important_notes():
     print("\nIMPORTANT NOTES:")
     print("-" * 70)
     notes = [
-        "The GUI uses demo_scan/ folder for testing scans",
+        "The GUI uses examples/demo_scan/ folder for testing scans",
         "Quarantine data stored in data/quarantine/",
         "Allowlist saved to ~/.antivirus/allowlist.json",
         "Settings saved to ~/.antivirus/config.json",
@@ -109,6 +113,7 @@ def main():
     print("="*70)
     
     try:
+        os.chdir(project_root)
         from PyQt6.QtWidgets import QApplication
         from gui_main import main as gui_main
         

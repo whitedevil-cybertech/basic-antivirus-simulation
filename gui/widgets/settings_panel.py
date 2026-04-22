@@ -52,10 +52,10 @@ class SettingsPanel(QWidget):
             Default settings dict.
         """
         return {
-            "signatures_db": "malware_signatures.json",
+            "signatures_db": "data/signatures.json",
             "quarantine_dir": "data/quarantine",
             "allowlist_file": "data/allowlist.json",
-            "log_file": "scan_results.log",
+            "log_file": "logs/scan_results.log",
             "theme": "dark",
             "verbose_logging": True,
             "auto_quarantine": True,

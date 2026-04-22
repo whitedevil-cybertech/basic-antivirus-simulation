@@ -9,6 +9,8 @@ basic-antivirus-simulation/
 │
 ├── main.py                    # CLI entry point
 ├── antivirus_scanner.py       # Backward-compatibility shim
+├── gui_main.py                # GUI entry point
+├── gui_requirements.txt       # GUI dependencies
 │
 ├── scanner/
 │   ├── __init__.py
@@ -19,16 +21,37 @@ basic-antivirus-simulation/
 │   ├── report.py              # JSON report generation
 │   └── utils.py               # Logging setup, path validation
 │
+├── gui/                        # PyQt6 GUI application
+│   ├── widgets/                # GUI panels (Scan, Quarantine, Analytics, etc.)
+│   └── dialogs/                # GUI dialogs (Report, Options, etc.)
+│
 ├── data/
 │   ├── signatures.json        # Signature database (hash → threat metadata)
 │   ├── allowlist.json         # Allowlisted paths and hashes
 │   └── quarantine/            # Quarantine storage (includes manifest.json)
 │
+├── examples/
+│   ├── demo_scan/              # Demo files for scanning
+│   ├── demo_quarantine/        # Demo quarantine target
+│   └── malware_signatures.json # Demo signature database
+│
 ├── logs/
-│   └── scan.log               # Default log output
+│   ├── scan.log               # Default log output
+│   └── scan_results.log       # GUI analytics log
+│
+├── scripts/
+│   ├── launch_gui.py           # GUI visual testing launcher
+│   ├── launch_gui.bat          # Windows GUI launcher
+│   └── setup_demo.py           # Demo data setup
+│
+├── docs/
+│   └── development/            # Phase docs + visual testing guides
 │
 └── tests/
-    └── test_antivirus_scanner.py
+    ├── test_antivirus_scanner.py
+    ├── test_gui_phase3.py
+    ├── test_gui_phase5.py
+    └── test_gui_functional.py
 ```
 
 ## Signature database format

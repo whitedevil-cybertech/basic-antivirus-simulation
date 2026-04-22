@@ -50,7 +50,9 @@ def main() -> int:
     window.tab_allowlist.set_allowlist_path(allowlist_file)
     
     # Setup analytics panel
-    scan_results_file = project_root / "scan_results.log"
+    logs_dir = project_root / "logs"
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    scan_results_file = logs_dir / "scan_results.log"
     window.tab_analytics.set_scan_results_file(scan_results_file)
     window.tab_analytics.set_quarantine_directory(quarantine_dir)
     

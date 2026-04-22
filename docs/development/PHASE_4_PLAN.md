@@ -119,7 +119,7 @@
 - **CSV module**: Built-in Python
 
 ### Data Sources
-- Scan results from `scan_results.log`
+- Scan results from `logs/scan_results.log`
 - Quarantine manifest: `data/quarantine/manifest.json`
 - Application logs: `~/.antivirus/logs/gui.log`
 

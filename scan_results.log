@@ -1,3 +1,0 @@
-2026-04-21 22:50:22,387 WARNING Malicious file detected: A:\CYBERSECURITY\Skillfied\Project1\basic-antivirus-simulation\demo_scan\virus.exe
-2026-04-21 22:50:22,392 INFO Moved file to quarantine: A:\CYBERSECURITY\Skillfied\Project1\basic-antivirus-simulation\demo_quarantine\virus.exe
-2026-04-21 22:50:22,392 INFO Scan completed. Total files: 3, malicious: 1

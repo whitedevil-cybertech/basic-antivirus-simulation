@@ -5,11 +5,15 @@ import hashlib
 import json
 from pathlib import Path
 
+project_root = Path(__file__).resolve().parents[1]
+
 # Create demo directories
-demo_scan = Path("demo_scan")
-demo_quarantine = Path("demo_quarantine")
-demo_scan.mkdir(exist_ok=True)
-demo_quarantine.mkdir(exist_ok=True)
+examples_dir = project_root / "examples"
+examples_dir.mkdir(exist_ok=True)
+demo_scan = examples_dir / "demo_scan"
+demo_quarantine = examples_dir / "demo_quarantine"
+demo_scan.mkdir(parents=True, exist_ok=True)
+demo_quarantine.mkdir(parents=True, exist_ok=True)
 
 # Create sample files
 clean_doc = demo_scan / "clean_doc.txt"
@@ -24,14 +28,14 @@ malware_file.write_text("MALWARE_CODE_HERE")
 malware_hash = hashlib.sha256(b"MALWARE_CODE_HERE").hexdigest()
 
 # Create signature database
-signatures_json = Path("malware_signatures.json")
+signatures_json = examples_dir / "malware_signatures.json"
 signatures_json.write_text(json.dumps({"signatures": [malware_hash]}, indent=2))
 
 print("✅ Demo setup complete!")
-print(f"📁 Created demo_scan/ with 3 test files:")
+print(f"📁 Created examples/demo_scan/ with 3 test files:")
 print(f"   - clean_doc.txt (safe)")
 print(f"   - safe_file.txt (safe)")
 print(f"   - virus.exe (MALWARE - hash: {malware_hash[:16]}...)")
-print(f"\n📋 Created malware_signatures.json with 1 malware signature")
+print(f"\n📋 Created examples/malware_signatures.json with 1 malware signature")
 print(f"\n🚀 Ready to scan! Run:")
-print(f"   py antivirus_scanner.py demo_scan --signatures malware_signatures.json --quarantine demo_quarantine --log-file scan_results.log --verbose")
+print(f"   py antivirus_scanner.py examples/demo_scan --signatures examples/malware_signatures.json --quarantine examples/demo_quarantine --log-file logs/scan_results.log --verbose")

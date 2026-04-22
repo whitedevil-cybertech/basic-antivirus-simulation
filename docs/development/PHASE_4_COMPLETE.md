@@ -270,7 +270,7 @@ Remaining work:
 - CSV: `~/.antivirus/reports/scan_statistics_[date].csv`
 
 **Sources Used**:
-- Scan Results: `scan_results.log`
+- Scan Results: `logs/scan_results.log`
 - Quarantine: `data/quarantine/manifest.json`
 
 ---

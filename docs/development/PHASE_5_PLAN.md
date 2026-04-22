@@ -130,7 +130,7 @@ except RuntimeError as e:
 - Error recovery on startup
 
 **Windows Launcher**:
-- Update `launch_gui.bat` with error handling
+- Update `scripts/launch_gui.bat` with error handling
 - Create desktop shortcut script
 - Version checking
 
@@ -276,7 +276,7 @@ Phase 5 is complete when:
 - `gui_main.py` - Improve entry point
 - `README.md` - Add GUI documentation
 - `setup.py` - Package configuration
-- `launch_gui.bat` - Windows launcher
+- `scripts/launch_gui.bat` - Windows launcher
 
 ### Low Priority
 - `gui/theme.py` - Minor optimizations
@@ -362,7 +362,7 @@ QShortcut(QKeySequence("Ctrl+H"), self, lambda: self.tabs.setCurrentWidget(self.
 
 ### Launching
 - Python: `python gui_main.py`
-- Windows: Double-click `launch_gui.bat`
+- Windows: Double-click `scripts/launch_gui.bat`
 - After pip install: `antivirus-gui`
 
 ### Features

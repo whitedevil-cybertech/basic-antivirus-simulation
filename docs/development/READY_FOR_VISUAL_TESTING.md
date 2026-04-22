@@ -17,13 +17,13 @@
 
 **Option 1: Windows (EASIEST)**
 ```
-Double-click: launch_gui.bat
+Double-click: scripts/launch_gui.bat
 ```
 
 **Option 2: Command Line**
 ```powershell
 cd A:\CYBERSECURITY\Skillfied\Project1\basic-antivirus-simulation
-python launch_gui.py
+python scripts/launch_gui.py
 ```
 
 **Option 3: Direct Python**
@@ -259,7 +259,7 @@ You have everything needed to visually test the GUI:
 
 **Just run:**
 ```
-python launch_gui.py
+python scripts/launch_gui.py
 ```
 
 And start testing! 🚀
@@ -270,7 +270,7 @@ And start testing! 🚀
 
 | Question | Answer |
 |----------|--------|
-| How do I launch? | `python launch_gui.py` or double-click `launch_gui.bat` |
+| How do I launch? | `python scripts/launch_gui.py` or double-click `scripts/launch_gui.bat` |
 | What do I test? | See `VISUAL_TESTING_GUIDE.md` |
 | What if it breaks? | Check troubleshooting in `GUI_TESTING_QUICK_START.md` |
 | Where's my data? | Check data locations table above |

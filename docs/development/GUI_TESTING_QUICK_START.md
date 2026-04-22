@@ -3,12 +3,12 @@
 ## 🎯 Three Ways to Launch
 
 ### Option 1: Windows Batch File (EASIEST)
-📁 Find and double-click: **`launch_gui.bat`**
+📁 Find and double-click: **`scripts/launch_gui.bat`**
 
 ### Option 2: PowerShell Command
 ```powershell
 cd A:\CYBERSECURITY\Skillfied\Project1\basic-antivirus-simulation
-python launch_gui.py
+python scripts/launch_gui.py
 ```
 
 ### Option 3: Direct GUI Launch
@@ -36,7 +36,7 @@ The GUI will display:
 ## 🧪 Quick Test Flow (5 minutes)
 
 1. **Launch the app** (see above)
-2. **Click Scan tab** → Select `demo_scan` folder → Click Scan
+2. **Click Scan tab** → Select `examples/demo_scan` folder → Click Scan
    - Watch the progress bar
    - See results in table
 3. **Click Quarantine tab** → Click Refresh
@@ -168,17 +168,17 @@ python --version
 pip install PyQt6
 
 # Try launching again
-python launch_gui.py
+python scripts/launch_gui.py
 ```
 
 ### ModuleNotFoundError
 Make sure you're in the correct directory:
 ```bash
 cd A:\CYBERSECURITY\Skillfied\Project1\basic-antivirus-simulation
-python launch_gui.py
+python scripts/launch_gui.py
 ```
 
-### Missing demo_scan folder
+### Missing examples/demo_scan folder
 The GUI will still work, just browse to any folder to scan.
 
 ---
