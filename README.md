@@ -98,6 +98,18 @@ antivirus-cli scan --path ./files \
     --verbose
 ```
 
+If `antivirus-cli` is not found (PATH not set), use:
+
+```bash
+py -m basic_antivirus_simulation.cli scan --path ./files
+```
+
+Or use the launcher:
+
+```powershell
+scripts\run_cli.bat scan --path .\files
+```
+
 ### Quarantine management (CLI)
 
 ```bash
@@ -123,6 +135,18 @@ antivirus-cli allowlist add --hash <sha256-hex>
 
 ```bash
 antivirus-gui
+```
+
+If `antivirus-gui` is not found (PATH not set), use:
+
+```bash
+py -m basic_antivirus_simulation.gui_app
+```
+
+Or use the launcher:
+
+```powershell
+scripts\run_gui.bat
 ```
 
 ## Exit codes
